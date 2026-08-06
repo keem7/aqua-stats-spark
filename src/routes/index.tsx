@@ -4,7 +4,13 @@ import logoAsset from "@/assets/kaizema-logo.jpeg.asset.json";
 import { EntryForm } from "@/components/EntryForm";
 import { EntryList } from "@/components/EntryList";
 import { StatCard } from "@/components/StatCard";
-import { formatDate, useEntries } from "@/lib/production-store";
+import {
+  PRICE_PER_BUNDLE,
+  formatDate,
+  formatMoney,
+  revenueOf,
+  useEntries,
+} from "@/lib/production-store";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -65,17 +71,26 @@ function Index() {
           <p className="mb-3 text-sm font-medium text-muted-foreground">
             {loaded && latest ? formatDate(latest.date) : "Awaiting first entry"}
           </p>
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <StatCard
-              label="Produced"
+              label="Bundles produced"
               value={latest?.produced ?? 0}
               previous={previous?.produced}
             />
-            <StatCard label="Sold" value={latest?.sold ?? 0} previous={previous?.sold} />
             <StatCard
-              label="Revenue"
-              value={latest?.revenue ?? 0}
-              previous={previous?.revenue}
+              label="Set out for sales"
+              value={latest?.setOut ?? 0}
+              previous={previous?.setOut}
+            />
+            <StatCard
+              label="Bundles with issues"
+              value={latest?.issues ?? 0}
+              previous={previous?.issues}
+            />
+            <StatCard
+              label={`Revenue @ ${formatMoney(PRICE_PER_BUNDLE)}/bundle`}
+              value={latest ? revenueOf(latest) : 0}
+              previous={previous ? revenueOf(previous) : undefined}
               money
             />
           </div>
