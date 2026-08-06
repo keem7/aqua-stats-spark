@@ -5,7 +5,9 @@ import {
   formatDate,
   formatMoney,
   formatPercent,
+  goodBundles,
   percentChange,
+  revenueOf,
   type DayEntry,
 } from "@/lib/production-store";
 
@@ -19,7 +21,7 @@ export function EntryList({ entries, onDelete }: Props) {
     return (
       <Card className="border-dashed border-border bg-surface p-8 text-center shadow-soft">
         <p className="text-sm text-muted-foreground">
-          No days recorded yet. Add today&apos;s production and sales to start tracking growth.
+          No days recorded yet. Add today&apos;s bundles to start tracking growth.
         </p>
       </Card>
     );
@@ -29,7 +31,7 @@ export function EntryList({ entries, onDelete }: Props) {
     <ul className="grid gap-3">
       {entries.map((entry, index) => {
         const prev = entries[index + 1];
-        const change = prev ? percentChange(entry.revenue, prev.revenue) : null;
+        const change = prev ? percentChange(revenueOf(entry), revenueOf(prev)) : null;
         const positive = change !== null && change > 0;
         return (
           <li key={entry.id}>
@@ -40,8 +42,13 @@ export function EntryList({ entries, onDelete }: Props) {
                     {formatDate(entry.date)}
                   </p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {entry.produced.toLocaleString()} produced · {entry.sold.toLocaleString()} sold ·{" "}
-                    {formatMoney(entry.revenue)} revenue
+                    {entry.produced.toLocaleString()} produced ·{" "}
+                    {entry.setOut.toLocaleString()} set out ·{" "}
+                    {entry.issues.toLocaleString()} with issues
+                  </p>
+                  <p className="mt-1 text-sm font-medium text-foreground">
+                    {goodBundles(entry).toLocaleString()} sellable ·{" "}
+                    {formatMoney(revenueOf(entry))}
                   </p>
                   {entry.notes ? (
                     <p className="mt-2 text-sm italic text-muted-foreground">{entry.notes}</p>
