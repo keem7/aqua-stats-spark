@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Droplets } from "lucide-react";
+import logoAsset from "@/assets/kaizema-logo.jpeg.asset.json";
 import { EntryForm } from "@/components/EntryForm";
 import { EntryList } from "@/components/EntryList";
 import { StatCard } from "@/components/StatCard";
@@ -8,17 +9,17 @@ import { formatDate, useEntries } from "@/lib/production-store";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Water Factory Daily Production & Sales Tracker" },
+      { title: "Kaizema Pure Water — Daily Production & Sales" },
       {
         name: "description",
         content:
-          "Record daily water production and sales, and see the percentage increase or drop against the previous day.",
+          "Kaizema Pure Water daily log: record production and sales, and track the percentage increase over the previous day.",
       },
-      { property: "og:title", content: "Water Factory Daily Production & Sales Tracker" },
+      { property: "og:title", content: "Kaizema Pure Water — Daily Production & Sales" },
       {
         property: "og:description",
         content:
-          "Record daily water production and sales, and see the percentage increase or drop against the previous day.",
+          "Kaizema Pure Water daily log: record production and sales, and track the percentage increase over the previous day.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -35,17 +36,24 @@ function Index() {
   return (
     <main className="min-h-screen bg-background pb-16">
       <header className="bg-water px-5 pb-12 pt-10 text-primary-foreground">
-        <div className="mx-auto max-w-3xl">
-          <p className="inline-flex items-center gap-2 rounded-full bg-background/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-            <Droplets className="size-3.5" /> Daily log
-          </p>
-          <h1 className="mt-4 font-display text-3xl font-bold leading-tight">
-            Water Factory Production &amp; Sales
-          </h1>
-          <p className="mt-2 max-w-md text-sm opacity-90">
-            Log each day&apos;s output and sales, and track the percentage improvement over the
-            previous day.
-          </p>
+        <div className="mx-auto flex max-w-3xl items-start gap-4">
+          <img
+            src={logoAsset.url}
+            alt="Kaizema Pure Water logo"
+            className="size-16 shrink-0 rounded-xl border border-background/30 bg-background object-cover"
+          />
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full bg-background/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+              <Droplets className="size-3.5" /> Daily log
+            </p>
+            <h1 className="mt-3 font-display text-3xl font-bold leading-tight">
+              Kaizema Pure Water
+            </h1>
+            <p className="mt-2 max-w-md text-sm opacity-90">
+              Log each day&apos;s production and sales, and track the percentage improvement over
+              the previous day.
+            </p>
+          </div>
         </div>
       </header>
 
