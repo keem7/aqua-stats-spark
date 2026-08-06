@@ -1,24 +1,87 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Droplets } from "lucide-react";
+import { EntryForm } from "@/components/EntryForm";
+import { EntryList } from "@/components/EntryList";
+import { StatCard } from "@/components/StatCard";
+import { formatDate, useEntries } from "@/lib/production-store";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Water Factory Daily Production & Sales Tracker" },
+      {
+        name: "description",
+        content:
+          "Record daily water production and sales, and see the percentage increase or drop against the previous day.",
+      },
+      { property: "og:title", content: "Water Factory Daily Production & Sales Tracker" },
+      {
+        property: "og:description",
+        content:
+          "Record daily water production and sales, and see the percentage increase or drop against the previous day.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const { entries, loaded, saveEntry, removeEntry } = useEntries();
+  const latest = entries[0];
+  const previous = entries[1];
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="min-h-screen bg-background pb-16">
+      <header className="bg-water px-5 pb-12 pt-10 text-primary-foreground">
+        <div className="mx-auto max-w-3xl">
+          <p className="inline-flex items-center gap-2 rounded-full bg-background/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+            <Droplets className="size-3.5" /> Daily log
+          </p>
+          <h1 className="mt-4 font-display text-3xl font-bold leading-tight">
+            Water Factory Production &amp; Sales
+          </h1>
+          <p className="mt-2 max-w-md text-sm opacity-90">
+            Log each day&apos;s output and sales, and track the percentage improvement over the
+            previous day.
+          </p>
+        </div>
+      </header>
+
+      <div className="mx-auto -mt-6 grid max-w-3xl gap-6 px-5">
+        <section aria-labelledby="summary">
+          <h2 id="summary" className="sr-only">
+            Latest day summary
+          </h2>
+          <p className="mb-3 text-sm font-medium text-muted-foreground">
+            {loaded && latest ? formatDate(latest.date) : "Awaiting first entry"}
+          </p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <StatCard
+              label="Produced"
+              value={latest?.produced ?? 0}
+              previous={previous?.produced}
+            />
+            <StatCard label="Sold" value={latest?.sold ?? 0} previous={previous?.sold} />
+            <StatCard
+              label="Revenue"
+              value={latest?.revenue ?? 0}
+              previous={previous?.revenue}
+              money
+            />
+          </div>
+        </section>
+
+        <EntryForm onSave={saveEntry} />
+
+        <section aria-labelledby="history" className="grid gap-3">
+          <h2 id="history" className="font-display text-lg font-semibold text-foreground">
+            History
+          </h2>
+          <EntryList entries={entries} onDelete={removeEntry} />
+        </section>
+      </div>
+    </main>
   );
 }
