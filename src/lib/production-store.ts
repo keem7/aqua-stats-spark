@@ -1,15 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
 
+export const PRICE_PER_BUNDLE = 10;
+export const CURRENCY = "NLE";
+
 export type DayEntry = {
   id: string;
   date: string; // yyyy-mm-dd
-  produced: number;
-  sold: number;
-  revenue: number;
+  produced: number; // bundles produced
+  setOut: number; // bundles set out for sales
+  issues: number; // bundles with issues (leakage etc.)
   notes: string;
 };
 
-const KEY = "water-factory-entries-v1";
+const KEY = "water-factory-entries-v2";
 
 function read(): DayEntry[] {
   try {
@@ -20,6 +23,15 @@ function read(): DayEntry[] {
   } catch {
     return [];
   }
+}
+
+/** Sellable bundles = set out minus those with issues. */
+export function goodBundles(entry: DayEntry): number {
+  return Math.max(entry.setOut - entry.issues, 0);
+}
+
+export function revenueOf(entry: DayEntry): number {
+  return goodBundles(entry) * PRICE_PER_BUNDLE;
 }
 
 export function useEntries() {
@@ -70,7 +82,7 @@ export function formatPercent(value: number | null): string {
 }
 
 export function formatMoney(value: number): string {
-  return value.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  return `${CURRENCY} ${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 }
 
 export function formatDate(date: string): string {
