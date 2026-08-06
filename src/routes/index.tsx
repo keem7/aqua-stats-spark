@@ -9,17 +9,17 @@ import { formatDate, useEntries } from "@/lib/production-store";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Water Factory Daily Production & Sales Tracker" },
+      { title: "Kaizema Pure Water — Daily Production & Sales" },
       {
         name: "description",
         content:
-          "Record daily water production and sales, and see the percentage increase or drop against the previous day.",
+          "Kaizema Pure Water daily log: record production and sales, and track the percentage increase over the previous day.",
       },
-      { property: "og:title", content: "Water Factory Daily Production & Sales Tracker" },
+      { property: "og:title", content: "Kaizema Pure Water — Daily Production & Sales" },
       {
         property: "og:description",
         content:
-          "Record daily water production and sales, and see the percentage increase or drop against the previous day.",
+          "Kaizema Pure Water daily log: record production and sales, and track the percentage increase over the previous day.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
