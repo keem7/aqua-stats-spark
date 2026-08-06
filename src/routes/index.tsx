@@ -36,17 +36,24 @@ function Index() {
   return (
     <main className="min-h-screen bg-background pb-16">
       <header className="bg-water px-5 pb-12 pt-10 text-primary-foreground">
-        <div className="mx-auto max-w-3xl">
-          <p className="inline-flex items-center gap-2 rounded-full bg-background/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-            <Droplets className="size-3.5" /> Daily log
-          </p>
-          <h1 className="mt-4 font-display text-3xl font-bold leading-tight">
-            Water Factory Production &amp; Sales
-          </h1>
-          <p className="mt-2 max-w-md text-sm opacity-90">
-            Log each day&apos;s output and sales, and track the percentage improvement over the
-            previous day.
-          </p>
+        <div className="mx-auto flex max-w-3xl items-start gap-4">
+          <img
+            src={logoAsset.url}
+            alt="Kaizema Pure Water logo"
+            className="size-16 shrink-0 rounded-xl border border-background/30 bg-background object-cover"
+          />
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full bg-background/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+              <Droplets className="size-3.5" /> Daily log
+            </p>
+            <h1 className="mt-3 font-display text-3xl font-bold leading-tight">
+              Kaizema Pure Water
+            </h1>
+            <p className="mt-2 max-w-md text-sm opacity-90">
+              Log each day&apos;s production and sales, and track the percentage improvement over
+              the previous day.
+            </p>
+          </div>
         </div>
       </header>
 
