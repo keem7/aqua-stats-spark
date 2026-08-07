@@ -91,7 +91,7 @@ function LoginPage() {
             />
           </div>
           {error ? (
-            <p className="text-sm font-medium text-destructive">Incorrect username or password.</p>
+            <p className="text-sm font-medium text-destructive">{error}</p>
           ) : null}
           <Button type="submit" disabled={busy}>
             {busy ? "Signing in…" : "Sign in"}
