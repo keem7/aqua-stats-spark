@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Droplets } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Droplets, ShieldCheck } from "lucide-react";
 import logoAsset from "@/assets/kaizema-logo.jpeg.asset.json";
 import { EntryForm } from "@/components/EntryForm";
 import { EntryList } from "@/components/EntryList";
@@ -42,6 +42,14 @@ function Index() {
   return (
     <main className="min-h-screen bg-background pb-16">
       <header className="bg-water px-5 pb-12 pt-10 text-primary-foreground">
+        <div className="mx-auto mb-4 flex max-w-3xl justify-end">
+          <Link
+            to="/admin"
+            className="inline-flex items-center gap-2 rounded-full bg-background/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide hover:bg-background/25"
+          >
+            <ShieldCheck className="size-3.5" /> Admin
+          </Link>
+        </div>
         <div className="mx-auto flex max-w-3xl items-start gap-4">
           <img
             src={logoAsset.url}
