@@ -2,11 +2,11 @@
 
 build a system for our water factory to collect the total production for the day and total sales and gives percentage increase on improvement
 
-This project was built with [Lovable](https://lovable.dev).
+
 
 **Live app**: https://aqua-stats-spark.lovable.app
 
-## Build with Lovable
+
 
 Continue developing this project in the [Lovable editor](https://lovable.dev/projects/9afb57c0-a8a0-427e-8d47-e96a264a6462).
 
