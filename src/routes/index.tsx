@@ -52,7 +52,7 @@ function Index() {
         </div>
         <div className="mx-auto flex max-w-3xl items-start gap-4">
           <img
-            src={logoAsset.url}
+            src={logoUrl}
             alt="Kaizema Pure Water logo"
             className="size-16 shrink-0 rounded-xl border border-background/30 bg-background object-cover"
           />
