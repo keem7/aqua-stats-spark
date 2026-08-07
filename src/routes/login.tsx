@@ -31,26 +31,32 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const router = useRouter();
   const login = useServerFn(adminLogin);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setBusy(true);
-    setError(false);
+    setError(null);
     const form = new FormData(e.currentTarget);
     try {
-      const { ok } = await login({
+      const res = await login({
         data: {
           username: String(form.get("username") ?? ""),
           password: String(form.get("password") ?? ""),
         },
       });
-      if (ok) {
+      if (res.ok) {
         await router.navigate({ to: "/admin" });
         return;
       }
-      setError(true);
+      setError(
+        res.reason === "not-configured"
+          ? "Admin credentials are not configured on this deployment."
+          : "Incorrect username or password.",
+      );
+    } catch {
+      setError("Could not sign in right now. Please try again.");
     } finally {
       setBusy(false);
     }
