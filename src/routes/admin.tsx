@@ -16,7 +16,12 @@ import {
 
 export const Route = createFileRoute("/admin")({
   beforeLoad: async () => {
-    const { admin } = await getAdminSession();
+    let admin: string | null = null;
+    try {
+      admin = (await getAdminSession()).admin;
+    } catch {
+      admin = null;
+    }
     if (!admin) throw redirect({ to: "/login" });
     return { admin };
   },
