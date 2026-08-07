@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Droplets, ShieldCheck } from "lucide-react";
-import logoAsset from "@/assets/kaizema-logo.jpeg.asset.json";
+import logoUrl from "@/assets/kaizema-logo.jpeg";
 import { EntryForm } from "@/components/EntryForm";
 import { EntryList } from "@/components/EntryList";
 import { StatCard } from "@/components/StatCard";
