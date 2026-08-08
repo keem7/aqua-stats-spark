@@ -7,6 +7,10 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  // Lovable builds override this with their managed target. External CI (including
+  // Vercel) uses Nitro's Vercel preset so SSR and createServerFn endpoints are
+  // emitted as deployable server functions instead of a Cloudflare worker.
+  nitro: { preset: "vercel" },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

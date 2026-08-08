@@ -53,6 +53,8 @@ function LoginPage() {
       setError(
         res.reason === "not-configured"
           ? "Admin credentials are not configured on this deployment."
+          : res.reason === "session-not-configured"
+            ? "SESSION_SECRET is missing or too short on this deployment. Set it to at least 32 characters, then redeploy."
           : "Incorrect username or password.",
       );
     } catch (err) {
