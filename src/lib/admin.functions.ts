@@ -18,9 +18,14 @@ export const adminLogin = createServerFn({ method: "POST" })
       return { ok: false as const, reason: "invalid" as const };
     }
 
-    const session = await openAdminSession();
-    await session.update({ admin: user });
-    return { ok: true as const, reason: null };
+    try {
+      const session = await openAdminSession();
+      await session.update({ admin: user });
+      return { ok: true as const, reason: null };
+    } catch (error) {
+      console.error("Unable to create admin session", error);
+      return { ok: false as const, reason: "session-not-configured" as const };
+    }
   });
 
 export const adminLogout = createServerFn({ method: "POST" }).handler(async () => {
