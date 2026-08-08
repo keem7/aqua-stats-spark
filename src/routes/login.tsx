@@ -55,8 +55,11 @@ function LoginPage() {
           ? "Admin credentials are not configured on this deployment."
           : "Incorrect username or password.",
       );
-    } catch {
-      setError("Could not sign in right now. Please try again.");
+    } catch (err) {
+      console.error("admin login failed", err);
+      setError(
+        "The sign-in service didn't respond. If this app is hosted outside Lovable, make sure ADMIN_USERNAME, ADMIN_PASSWORD and SESSION_SECRET are set there and that server functions are enabled.",
+      );
     } finally {
       setBusy(false);
     }
